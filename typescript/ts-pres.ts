@@ -5,7 +5,7 @@
 /**
  * Typescript is able to understand the flow of your program to narrow down types
  */
- function simpleCFA(input: string | number | boolean) {
+function simpleCFA(input: string | number | boolean) {
   // string | number | boolean
   input;
 
@@ -22,13 +22,13 @@
 }
 
 // =================================================
-// Predicte Functions / Typeguard Functions
+// Predicate Functions / Typeguard Functions
 // =================================================
-function isStringTypeGuard(input: any): input is string {
+function isStringPlain(input: any): boolean {
   return typeof input === "string";
 }
 
-function isStringPlain(input: any): boolean {
+function isStringTypeGuard(input: any): input is string {
   return typeof input === "string";
 }
 
@@ -51,9 +51,6 @@ function predicateCGA(input: string | number | boolean) {
     // (string | number | boolean) No type information is conveyed by isStringPlain()
     input;
   }
-
-  // By the time
-  input;
 }
 
 // Array.filter supports predicate functions
@@ -73,17 +70,17 @@ function arrayFilterPredicate(input: (string | number)[]) {
   );
 }
 
-interface Array<T> {
+type Array3<T> = {
   filter<S extends T>(predicate: (value: T) => value is S): S[];
   filter(predicate: (value: T) => unknown): T[];
-}
+};
 
 // =================================================
 // Discriminated Union Types
 // =================================================
 type StringNumberUnion = string | number;
 
-// Discriminated Union Type: A union of objects which share a common key with a literal value
+// Discriminated Union Type: A union of objects which share a common key with a unique literal value
 type Circle = {
   kind: "circle";
   radius: number;
@@ -107,9 +104,6 @@ function discriminatedUnions(input: Shape) {
     // Square
     input;
   }
-
-  // Shape
-  input;
 }
 
 // Discriminated unions can be use as a type predicate although it may not be very useful
@@ -126,6 +120,32 @@ function filterDU(arr: Shape[]) {
   );
 }
 
+// This is a very common pattern used in redux
+type CreateTodo = {
+  type: "CREATE_TODO";
+  payload: { task: string };
+};
+
+type RemoveTodo = {
+  type: "REMOVE_TODO";
+  payload: { taskId: string };
+};
+
+type Action = CreateTodo | RemoveTodo;
+
+const reducer = (state, action: Action) => {
+  switch (action.type) {
+    case "CREATE_TODO": {
+      const { task } = action.payload;
+      return state;
+    }
+    case "REMOVE_TODO": {
+      const { taskId } = action.payload;
+      return state;
+    }
+  }
+};
+
 // =================================================
 // "never" type
 // =================================================
@@ -137,6 +157,8 @@ function filterDU(arr: Shape[]) {
 function justFail(): never {
   throw Error();
 }
+
+const impossible = justFail();
 
 function neverSwitch(shape: Shape) {
   switch (shape.kind) {
@@ -170,3 +192,64 @@ function assertNeverSwitch(shape: Shape) {
   }
 }
 
+type Rectangle = {
+  kind: "rectangle";
+  width: number;
+  height: number;
+};
+
+// =================================================
+// Generic Types (Type "Parameters")
+// =================================================
+type List<T> = T[];
+type Pair<T> = [T, T];
+type Repository<T> = {
+  get: (id: string) => T;
+  set: (resource: T) => void;
+  update: (data: Partial<T>) => void;
+};
+
+// =================================================
+// Generic Type Inference
+// =================================================
+const identityFunc = (x) => x;
+
+type IdentityFn2 = <Something>(something: Something) => Something;
+type IdentityFn = <T>(val: T) => T;
+
+const identityFnConst: IdentityFn = (x) => x;
+
+const identityFnConstInline = <T>(x: T): T => x;
+
+function identityFunction<T>(val: T): T {
+  return val;
+}
+
+type Array2<T> = {
+  map<U>(callbackfn: (value: T) => U): U[];
+};
+
+const numArr = [1, 2, 3, 4] as const;
+const stringArr = numArr.map((num) => `${num}`);
+
+// =================================================
+// Mapped Types
+// =================================================
+type Person = {
+  name: string;
+  age: number;
+};
+
+// keyof operator allows you to get the keys of an object
+type PersonKey = keyof Person;
+const x: PersonKey = "age";
+
+type Arrayify<T> = {
+  [K in keyof T]: T[K][];
+};
+
+type ArrayifiedPerson = Arrayify<Person>;
+
+// =================================================
+// Conditional Types
+// =================================================

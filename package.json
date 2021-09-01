@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/lioneltay/notes/issues"
   },
-  "homepage": "https://github.com/lioneltay/notes#readme"
+  "homepage": "https://github.com/lioneltay/notes#readme",
+  "devDependencies": {
+    "prettier": "^2.3.2"
+  }
 }
