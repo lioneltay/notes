@@ -17,7 +17,28 @@ function simpleCFA(input: string | number | boolean) {
     input;
   }
 
-  // By the time
+  input;
+}
+
+// =================================================
+// Control Flow Analysis of Aliased Conditions
+// =================================================
+// Available in Typescript 4.4 https://devblogs.microsoft.com/typescript/announcing-typescript-4-4-beta/
+
+function aliasedCFA(input: string | number | boolean) {
+  // string | number | boolean
+  input;
+
+  const isString = typeof input === "string";
+
+  if (isString) {
+    // string
+    input;
+  } else {
+    // Not a string so must be (number | boolean)
+    input;
+  }
+
   input;
 }
 
@@ -36,19 +57,19 @@ function predicateCGA(input: string | number | boolean) {
   // string | number | boolean
   input;
 
-  if (isStringTypeGuard(input)) {
-    // string
-    input;
-  } else {
-    // Not a string so must be (number | boolean)
-    input;
-  }
-
   if (isStringPlain(input)) {
     // (string | number | boolean) No type information is conveyed by isStringPlain()
     input;
   } else {
     // (string | number | boolean) No type information is conveyed by isStringPlain()
+    input;
+  }
+
+  if (isStringTypeGuard(input)) {
+    // string
+    input;
+  } else {
+    // Not a string so must be (number | boolean)
     input;
   }
 }
@@ -76,6 +97,54 @@ type Array3<T> = {
 };
 
 // =================================================
+// Control Flow Analysis with more complex types
+// =================================================
+type Cat = {
+  name: string;
+  lives: number;
+  meow: () => void;
+};
+
+type Dog = {
+  name: string;
+  chewsCarpet: boolean;
+  bark: () => void;
+};
+
+function cfac(animal: Cat | Dog) {
+  animal.name;
+  animal.lives;
+  animal.meow;
+  animal.chewsCarpet;
+  animal.bark;
+
+  // Regular JS
+  if (animal.meow) {
+    // it's a cat
+    animal;
+  } else {
+    // it's a dog
+    animal;
+  }
+
+  if ((animal as Cat).meow) {
+    animal;
+  } else {
+    animal;
+  }
+
+  if (isCat(animal)) {
+    animal;
+  } else {
+    animal;
+  }
+}
+
+function isCat(animal: Cat | Dog): animal is Cat {
+  return typeof (animal as Cat).meow === "function";
+}
+
+// =================================================
 // Discriminated Union Types
 // =================================================
 type StringNumberUnion = string | number;
@@ -91,18 +160,22 @@ type Square = {
   sideLength: number;
 };
 
-type Shape = Circle | Square;
+type Shape = Circle | Square | Rectangle;
 
 function discriminatedUnions(input: Shape) {
   // Shape
   input;
+  input.radius;
+  input.sideLength;
 
   if (input.kind === "circle") {
     // Circle
-    input;
+    input.radius;
+    input.sideLength;
   } else {
     // Square
-    input;
+    input.radius;
+    input.sideLength;
   }
 }
 
@@ -183,9 +256,9 @@ function assertNeverSwitch(shape: Shape) {
     case "circle": {
       return shape;
     }
-    // case "square": {
-    //   return shape;
-    // }
+    case "square": {
+      return shape;
+    }
     default: {
       return assertNever(shape);
     }
@@ -198,6 +271,24 @@ type Rectangle = {
   height: number;
 };
 
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
 // =================================================
 // Generic Types (Type "Parameters")
 // =================================================
