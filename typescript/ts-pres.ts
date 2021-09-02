@@ -160,7 +160,7 @@ type Square = {
   sideLength: number;
 };
 
-type Shape = Circle | Square | Rectangle;
+type Shape = Circle | Square;
 
 function discriminatedUnions(input: Shape) {
   // Shape
