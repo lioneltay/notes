@@ -157,3 +157,5 @@ type IsUnion<Part, Whole = Part> = Part extends Whole
     ? false
     : true
   : never;
+
+export {};
