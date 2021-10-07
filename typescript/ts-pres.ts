@@ -247,18 +247,16 @@ function neverSwitch(shape: Shape) {
   }
 }
 
-function assertNever(input: never) {
-  return undefined;
-}
+function assertNever(input: never) {}
 
 function assertNeverSwitch(shape: Shape) {
   switch (shape.kind) {
     case "circle": {
       return shape;
     }
-    case "square": {
-      return shape;
-    }
+    // case "square": {
+    //   return shape;
+    // }
     default: {
       return assertNever(shape);
     }
@@ -271,24 +269,6 @@ type Rectangle = {
   height: number;
 };
 
-/**
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- */
 // =================================================
 // Generic Types (Type "Parameters")
 // =================================================
