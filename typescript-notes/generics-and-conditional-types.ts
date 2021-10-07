@@ -95,3 +95,5 @@ type UnionOfStuff = "hello" | 5 | "there" | false;
 type NotStrings = MyExclude<UnionOfStuff, string>;
 
 type MyExclude<T, U> = T extends U ? never : T; // never | 5 | never | false
+
+export {}
