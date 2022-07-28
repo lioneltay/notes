@@ -84,9 +84,7 @@ function ElementExample({ as: As, ...rest }: ElementExampleProps) {
   return <As {...rest} />;
 }
 
-const FunctionComp = () => <></>;
-
-<FunctionComp />;
+const FunctionComp = () => null;
 
 class ClassComp extends React.Component {
   render() {
@@ -157,7 +155,7 @@ const Modal: React.FC<ModalProps> = (props) => null;
 type Modal2Props = {
   open: boolean;
   onClose: () => void;
-  children: React.ReactElement;
+  children: React.ReactNode;
 };
 
 const Modal2: React.VFC<Modal2Props> = (props) => null;
@@ -171,7 +169,7 @@ const Modal2: React.VFC<Modal2Props> = (props) => null;
 type Modal3Props = {
   open: boolean;
   onClose: () => void;
-  children: React.ReactElement;
+  children: React.ReactNode;
 };
 
 const Modal3 = (props: Modal3Props) => null;
