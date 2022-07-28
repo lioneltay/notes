@@ -253,6 +253,8 @@ const Dropdown = <T extends unknown>({
   }
 />;
 
+<Dropdown items={[1, 2, 3, 4, 5]} renderItem={(value) => value * 2} />;
+
 // This doesn't work with VFC, there is no way to specify the generic type without hardcoding it
 const VFCDropdown: React.VFC<DropdownProps> = () => null;
 
