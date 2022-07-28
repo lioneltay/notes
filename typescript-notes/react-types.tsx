@@ -191,7 +191,7 @@ interface VoidFunctionComponent<P = {}> {
   (props: P, context?: any): ReactElement<any, any> | null;
   // This is redundant if you are using typescript
   propTypes?: WeakValidationMap<P> | undefined;
-  // This is for the old context API which has been deprecated
+  // This is for the old context API which has been deprecated in favor of (useContext hook)
   contextTypes?: ValidationMap<any> | undefined;
   // You can use default arguments instead, or if you want to, you can use this without VFC anyway
   defaultProps?: Partial<P> | undefined;
@@ -252,3 +252,9 @@ const Dropdown = <T extends unknown>({
     `${firstName.toLowerCase()} ${lastName.toUpperCase()}`
   }
 />;
+
+// This doesn't work with VFC, there is no way to specify the generic type without hardcoding it
+const VFCDropdown: React.VFC<DropdownProps> = () => null;
+
+// Works but is hardcoded to only handle "string" items now
+const VFCDropdown2: React.VFC<DropdownProps<string>> = () => null;
