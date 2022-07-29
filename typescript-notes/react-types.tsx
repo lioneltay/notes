@@ -229,8 +229,8 @@ MyComp.defaultProps;
 MyComp.displayName;
 
 // One advantage VFC has is that it explicitly sets the return type.
-// This is a slight benefit, but in practice this is not a very meaningful as any the
-// return type is validated when you use the component regardless.
+// This is a slight benefit, but in practice this is not a very meaningful benefeit as
+// the return type is validated whenever you use the component regardless.
 const InvalidReturnType = () => "THIS IS INVALID";
 
 <h1>
