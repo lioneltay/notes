@@ -43,7 +43,7 @@ const jj: React.ReactElement = _jsx(ClassComponent);
 const kk: React.ReactElement = _jsx("h1");
 const ll: React.ReactElement = _jsx(React.Fragment);
 
-// The return type of a React component
+// The return type of a React component (JSX or null)
 type ReturnTypeForComponents = React.ReactElement | null;
 
 // ######################################################################
