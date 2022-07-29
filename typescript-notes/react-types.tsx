@@ -79,21 +79,8 @@ type ReactNode =
 </>;
 
 // ######################################################################
-// React.ElementType / React.JSXElementConstructor
+// React.ElementType - Things that are a valid JSX tag (Function Component / Class Component / Native Element).
 // ######################################################################
-/**
- * Things that are a valid JSX tag (Function Component / Class Component / Native Element).
- * ElementType is a superset of JSXElementConstructor which includes native element tags
- */
-type ElementExampleProps = {
-  as: React.ElementType;
-  // as: React.JSXElementConstructor<any>;
-};
-
-function ElementExample({ as: As, ...rest }: ElementExampleProps) {
-  return <As {...rest} />;
-}
-
 const FunctionComp = () => null;
 
 class ClassComp extends React.Component {
@@ -102,11 +89,24 @@ class ClassComp extends React.Component {
   }
 }
 
+const xx: React.ElementType = "h1";
+<h1 />;
+const yy: React.ElementType = FunctionComp;
+<FunctionComp />;
+const zz: React.ElementType = ClassComp;
+<ClassComp />;
+
+type ElementExampleProps = {
+  as: React.ElementType;
+};
+
+function ElementExample({ as: As, ...rest }: ElementExampleProps) {
+  return <As {...rest} />;
+}
+
 <ElementExample as="h1" />;
 <ElementExample as={ClassComp} />;
 <ElementExample as={FunctionComp} />;
-// May cause performance problems in some cases
-<ElementExample as={() => null} />;
 
 // ######################################################################
 // JSX.IntrinsicElements
@@ -114,7 +114,7 @@ class ClassComp extends React.Component {
 type CustomH1 = JSX.IntrinsicElements["h1"];
 
 const CustomH1 = (props: CustomH1) => {
-  return <h1 {...props} style={{ colnr: "orange", ...props.style }} />;
+  return <h1 {...props} style={{ color: "orange", ...props.style }} />;
 };
 
 <h1 />;
