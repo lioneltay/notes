@@ -16,7 +16,7 @@ import React, {
 import ReactDOM from "react-dom";
 
 // ######################################################################
-// React.ReactElement: The result of rendering JSX (excluding null)
+// React.ReactElement: The result of rendering JSX
 // ######################################################################
 
 const FunctionComponent = () => null;
@@ -27,13 +27,23 @@ class ClassComponent extends React.Component {
   }
 }
 
-const functionElement: React.ReactElement = <FunctionComponent />;
-const classElement: React.ReactElement = <ClassComponent />;
-const nativeElement: React.ReactElement = <h1></h1>;
-const fragmentIsElement: React.ReactElement = <></>;
-const notNull: React.ReactElement = null;
+const aa: React.ReactElement = <FunctionComponent />;
+const bb: React.ReactElement = <ClassComponent />;
+const cc: React.ReactElement = <h1></h1>;
+const dd: React.ReactElement = <></>;
 
-// Not part of @types/react
+const ee: React.ReactElement = React.createElement(FunctionComponent);
+const ff: React.ReactElement = React.createElement(ClassComponent);
+const gg: React.ReactElement = React.createElement("h1");
+const hh: React.ReactElement = React.createElement(React.Fragment);
+
+import { jsx as _jsx } from "react/jsx-runtime";
+const ii: React.ReactElement = _jsx(FunctionComponent);
+const jj: React.ReactElement = _jsx(ClassComponent);
+const kk: React.ReactElement = _jsx("h1");
+const ll: React.ReactElement = _jsx(React.Fragment);
+
+// The return type of a React component
 type ReturnTypeForComponents = React.ReactElement | null;
 
 // ######################################################################
@@ -104,7 +114,7 @@ class ClassComp extends React.Component {
 type CustomH1 = JSX.IntrinsicElements["h1"];
 
 const CustomH1 = (props: CustomH1) => {
-  return <h1 {...props} style={{ color: "orange", ...props.style }} />;
+  return <h1 {...props} style={{ colnr: "orange", ...props.style }} />;
 };
 
 <h1 />;
